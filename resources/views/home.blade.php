@@ -37,10 +37,14 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-6"></div>
+                            <div class="col-6">
+
+                            </div>
                             <div class="col-6 d-flex">
-                                <input type="text" name="search" id="search" class="form-control"
-                                    placeholder="Search for Dates">
+                                <input type="text" name="startDate" id="startDate" class="form-control datepicker"
+                                    placeholder="Start date">
+                                <input type="text" name="endDate" id="endDate" class="form-control datepicker"
+                                    placeholder="End date">
                                 <button class="btn btn-primary">
                                     <img src="/images/search.svg" alt="search icon">
                                 </button>
@@ -109,6 +113,14 @@
             </div>
         </div>
     </div>
+    <script>
+        $(function() {
+            $(".datepicker").datepicker({
+                changeMonth: true,
+                changeYear: true
+            });
+        });
+    </script>
 @endsection
 
 
@@ -140,3 +152,5 @@
         </div>
     </div>
 </div>
+
+
