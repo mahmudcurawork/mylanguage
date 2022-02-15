@@ -16,21 +16,22 @@
 
                         <div class="row">
                             <div class="col-6">
-                                <button class="btn btn-danger">
+                                <button class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="delete">
                                     <img src="/images/trash.svg" alt="trash icon" width="25" height="25">
                                 </button>
-                                <button class="btn btn-info">
+                                <button class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="view">
                                     <img src="/images/eye.svg" alt="trash icon" width="25" height="25">
                                 </button>
-                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-toggle="tooltip" data-placement="top" title="add">
                                     <img src="/images/plus.svg" alt="trash icon" width="25" height="25">
                                 </button>
 
                             </div>
                             <div class="col-6 d-flex">
+                                
                                 <input type="text" name="search" id="search" class="form-control"
                                     placeholder="Search for words">
-                                <button class="btn btn-primary">
+                                <button class="btn btn-secondary">
                                     <img src="/images/search.svg" alt="search icon">
                                 </button>
                             </div>
@@ -45,7 +46,7 @@
                                     placeholder="Start date">
                                 <input type="text" name="endDate" id="endDate" class="form-control datepicker"
                                     placeholder="End date">
-                                <button class="btn btn-primary">
+                                <button class="btn btn-secondary">
                                     <img src="/images/search.svg" alt="search icon">
                                 </button>
                             </div>
@@ -59,7 +60,7 @@
                                     <option value="2">2</option>
                                     <option value="3">3</option>
                                 </select>
-                                <button class="btn btn-primary">
+                                <button class="btn btn-secondary">
                                     <img src="/images/search.svg" alt="search icon">
                                 </button>
                             </div>
@@ -67,45 +68,23 @@
 
                         <br><br>
 
+
+
                         <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">
                                         <input type="checkbox" name="multipleDelete" id="multipleDelete">
+                                        <span>Word</span>
                                     </th>
-                                    <th scope="col">Word</th>
                                     <th scope="col">Definition</th>
+                                    <th scope="col">Learned</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">
-                                        <input type="checkbox" name="select" id="select1">
-                                        <label for="select1">1</label>
-
-                                    </th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <input type="checkbox" name="select" id="select2">
-                                        <label for="select2">2</label>
-                                    </th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr for="select3">
-                                    <th scope="row">
-                                        <input type="checkbox" name="select" id="select3">
-                                        <label for="select3">3</label>
-                                    </th>
-                                    <td colspan="2">Larry the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
+                            <tbody id="wordsTable">
+                                
+                                
                             </tbody>
                         </table>
                     </div>
@@ -113,14 +92,11 @@
             </div>
         </div>
     </div>
-    <script>
-        $(function() {
-            $(".datepicker").datepicker({
-                changeMonth: true,
-                changeYear: true
-            });
-        });
-    </script>
+
+    <div id="skeleton">
+        Loading...
+    </div>
+    
 @endsection
 
 
@@ -152,5 +128,3 @@
         </div>
     </div>
 </div>
-
-

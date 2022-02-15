@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\WordController;
+use Doctrine\Inflector\WordInflector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +22,8 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('/loadWords', [WordController::class, 'index']);
+
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
