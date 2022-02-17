@@ -22,13 +22,14 @@
                                 <button class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="view">
                                     <img src="/images/eye.svg" alt="trash icon" width="25" height="25">
                                 </button>
-                                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-toggle="tooltip" data-placement="top" title="add">
+                                <button id="addButton" onclick="addWord()" class="btn btn-secondary" data-toggle="tooltip"
+                                    data-placement="top" title="add">
                                     <img src="/images/plus.svg" alt="trash icon" width="25" height="25">
                                 </button>
 
                             </div>
                             <div class="col-6 d-flex">
-                                
+
                                 <input type="text" name="search" id="search" class="form-control"
                                     placeholder="Search for words">
                                 <button class="btn btn-secondary">
@@ -83,8 +84,8 @@
                                 </tr>
                             </thead>
                             <tbody id="wordsTable">
-                                
-                                
+
+
                             </tbody>
                         </table>
                     </div>
@@ -96,34 +97,53 @@
     <div id="skeleton">
         Loading...
     </div>
-    
 @endsection
 
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="wordModal" tabindex="-2" aria-labelledby="wordModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="wordModalLabel">Modal title</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="input-group">
-                    <input type="text" class="form-control mb-3" placeholder="word">
+                    <input type="text" id="word" class="form-control mb-3" placeholder="word">
                 </div>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="definition">
+                    <input type="text" id="definition" class="form-control" placeholder="definition">
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                <button type="button" class="btn btn-secondary" onclick="hideModal()">
                     <img src="/images/x-lg.svg" alt="close icon">
                 </button>
-                <button type="button" class="btn btn-primary">
+
+                <button type="submit" id="saveData" class="btn btn-secondary" onclick="">
                     <img src="/images/save.svg" alt="save icon">
                 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{-- are you sure box --}}
+
+<div class="modal fade" id="confirm" tabindex="-2" aria-labelledby="wordModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" id="actionYes" onclick="">Delete</button>
+
+                <button type="button" class="btn" id="actionNo" onclick="">Cancel</button>
             </div>
         </div>
     </div>

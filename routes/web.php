@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/loadWords', [WordController::class, 'index']);
+Route::post('/save-word', [WordController::class, 'store']);
+Route::post('/update-word', [WordController::class, 'update']);
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
