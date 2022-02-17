@@ -13,12 +13,89 @@ function editData(wordId, word, definition) {
     $('#word').val(word);
     $('#definition').val(definition);
     $('#wordModal').modal('show');
+
     $('#saveData').attr('onclick', 'updateData(' + wordId + ')');
 }
 
-$('input').on('keyup', function () {
-    checkValidity();
+
+function searchWord(event) {
+
+    var wordArr = [];
+
+    var typedString = $('#searchWord').val();
+    $.ajax({
+        url: '/search-word/' + typedString,
+        type: 'GET',
+        async: true,
+        dataType: 'json',
+        error: function () {
+            console.log("ajax error" + url);
+        },
+        success: function (response) {
+            $.each(response, function (index, value) {
+                wordArr.push(value.word);
+            });
+        }
+    });
+
+    $("#searchWord").autocomplete({
+        source: wordArr,
+        select: function(event, ui){
+            console.log('select', ui.item.value);
+        }
+    });
+
+
+    // $('#confirm').modal('hide');
+    // var requestFor = 'delete';
+
+    // var formData = new FormData;
+    // formData.append('wordId', wordId);
+    // formData.append('requestFor', requestFor);
+
+    // ajax('/update-word', 'POST', '', formData);
+
+
+
+    if (event.which == 13) {
+        $('#word').val(typedString);
+        addWord();
+    }
+}
+
+
+$('.modalForm').on('keyup', function (e) {
+    if (e.which == 13) {
+        $('#saveData').click();
+    } else {
+        checkValidity();
+    }
+
 });
+
+function deleteData(wordId) {
+    $('#confirm').modal('show');
+    $('#actionYes').attr('onclick', 'deleteWordConfirmed(' + wordId + ')');
+}
+
+function cancelAction() {
+    $('#confirm').modal('hide');
+    $('#actionYes').attr('onclick', '');
+}
+
+function deleteWordConfirmed(wordId) {
+
+    $('#confirm').modal('hide');
+    var requestFor = 'delete';
+
+    var formData = new FormData;
+    formData.append('wordId', wordId);
+    formData.append('requestFor', requestFor);
+
+    ajax('/update-word', 'POST', '', formData);
+
+    $('#wordRow_' + wordId).fadeOut("slow");
+}
 
 function markLearned(wordId, noOfRead) {
 
@@ -63,14 +140,21 @@ function checkValidity() {
 
 }
 
+
+
 function toggleDefinition(toShow) {
     $('#' + toShow).toggleClass('d-none');
+}
+
+function clearField(fieldId) {
+    $('#' + fieldId).val('');
 }
 
 function addWord() {
     $('#wordModal').modal('show');
     $('#saveData').attr('onclick', 'saveData()');
-    $('#word').val('');
+    var wordInSearchBox = $('#searchWord').val();
+    $('#word').val(wordInSearchBox);
     $('#definition').val('');
 
 }

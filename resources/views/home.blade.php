@@ -19,7 +19,8 @@
                                 <button class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="delete">
                                     <img src="/images/trash.svg" alt="trash icon" width="25" height="25">
                                 </button>
-                                <button class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="view">
+                                <button id="massView" class="btn btn-secondary" data-toggle="tooltip" data-placement="top"
+                                    title="view">
                                     <img src="/images/eye.svg" alt="trash icon" width="25" height="25">
                                 </button>
                                 <button id="addButton" onclick="addWord()" class="btn btn-secondary" data-toggle="tooltip"
@@ -30,8 +31,8 @@
                             </div>
                             <div class="col-6 d-flex">
 
-                                <input type="text" name="search" id="search" class="form-control"
-                                    placeholder="Search for words">
+                                <input type="text" onkeyup="searchWord(event)" name="searchWord" id="searchWord"
+                                    class="form-control" placeholder="Search for words">
                                 <button class="btn btn-secondary">
                                     <img src="/images/search.svg" alt="search icon">
                                 </button>
@@ -111,10 +112,14 @@
             </div>
             <div class="modal-body">
                 <div class="input-group">
-                    <input type="text" id="word" class="form-control mb-3" placeholder="word">
+                    <input type="text" id="word" class="form-control modalForm mb-3" placeholder="word">
+                    <span style="cursor: pointer" onclick="clearField('word')"><img src="/images/x-lg-white.svg"
+                            alt="clear"></span>
                 </div>
                 <div class="input-group">
-                    <input type="text" id="definition" class="form-control" placeholder="definition">
+                    <input type="text" id="definition" class="form-control modalForm" placeholder="definition">
+                    <span style="cursor: pointer" onclick="clearField('definition')"><img src="/images/x-lg-white.svg"
+                            alt="clear"></span>
                 </div>
             </div>
             <div class="modal-footer">
@@ -136,14 +141,14 @@
 <div class="modal fade" id="confirm" tabindex="-2" aria-labelledby="wordModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-
             <div class="modal-body">
-                Are you sure?
+                Are you sure to delete this word?
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn" id="actionYes" onclick="">Delete</button>
 
-                <button type="button" class="btn" id="actionNo" onclick="">Cancel</button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="actionYes" onclick="">Delete</button>
+
+                <button type="button" class="btn btn-secondary" id="actionNo" onclick="cancelAction()">Cancel</button>
             </div>
         </div>
     </div>

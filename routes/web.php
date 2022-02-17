@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\WordController;
-use Doctrine\Inflector\WordInflector;
 use Illuminate\Support\Facades\Auth;
+use Doctrine\Inflector\WordInflector;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WordController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,8 @@ Auth::routes();
 Route::get('/loadWords', [WordController::class, 'index']);
 Route::post('/save-word', [WordController::class, 'store']);
 Route::post('/update-word', [WordController::class, 'update']);
+
+Route::get('/search-word/{typedString}', [SearchController::class, 'index']);
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

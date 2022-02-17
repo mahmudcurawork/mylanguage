@@ -38,8 +38,8 @@
                 data-toggle="tooltip" data-placement="top" title="edit">
                     <img src="/images/pencil.svg" alt="edit icon">
                 </button>
-                <button class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="delete">
-                    <img src="/images/trash.svg" alt="edit icon">
+                <button class="btn btn-secondary" onclick="deleteData({{ $word->id }})" data-toggle="tooltip" data-placement="top" title="delete">
+                    <img src="/images/trash.svg" alt="delete icon">
                 </button>
             </td>
         </tr>

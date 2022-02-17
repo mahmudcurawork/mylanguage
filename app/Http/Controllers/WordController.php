@@ -11,7 +11,11 @@ class WordController extends Controller
 {
     public function index()
     {
-        $words = Word::where('user_id', Auth::user()->id)->where('learned', 0)->get();
+        $words = Word::
+        where('user_id', Auth::user()->id)
+        ->where('learned', 0)
+        ->where('deleted', 0)
+        ->get();
 
 
         $variables = [
@@ -40,7 +44,11 @@ class WordController extends Controller
                 'learned' => 1,
                 'no_of_read' => $request->noOfRead
             ]);
-        } else {
+        }elseif($request->requestFor == 'delete'){
+            Word::where('id', $request->wordId)->update([
+                'deleted' => 1
+            ]);
+        }else {
             Word::where('id', $request->wordId)->update([
                 'word' => $request->word,
                 'definition' => $request->definition
