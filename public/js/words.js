@@ -1,7 +1,8 @@
 $(function () {
     $(".datepicker").datepicker({
         changeMonth: true,
-        changeYear: true
+        changeYear: true,
+        dateFormat: "dd-mm-yy"
     });
 });
 
@@ -52,19 +53,28 @@ function searchWord(event) {
     });
 }
 
+function viewAll() {
+
+    console.log('hello');
+
+    // $('[id^="wordCheck_:checked"]').each(function () {
+    //     console.log(this.id);
+    // });
+}
+
 function checkAll() {
     if ($('#checkAll:checked').length) {
 
         $('[id^="wordCheck_"]').each(function () {
-            $('#'+this.id).prop('checked', true);
+            $('#' + this.id).prop('checked', true);
         });
-        
+
         // $('#test').prop('checked', true);
 
-        
+
     } else {
         $('[id^="wordCheck_"]').each(function () {
-            $('#'+this.id).prop('checked', false);
+            $('#' + this.id).prop('checked', false);
         });
     }
 
@@ -103,6 +113,20 @@ function deleteWordConfirmed(wordId) {
 
     $('#wordRow_' + wordId).fadeOut("slow");
 }
+
+function markNotLearned(wordId) {
+    var requestFor = 'notLearned';
+
+    var formData = new FormData;
+    formData.append('wordId', wordId);
+    $('#btnNotLearned_'+wordId).fadeOut("slow");
+
+    // $('#wordRow_' + wordId).fadeOut("slow");
+
+    ajax('/mark-not-learned', 'POST', '', formData);
+}
+
+
 
 function markLearned(wordId, noOfRead) {
 
@@ -147,6 +171,16 @@ function checkValidity() {
 
 }
 
+
+
+function viewAll() {
+
+    $('[id^="wordCheck_"]').each(function () {
+        var idToView = this.id.split('_');
+        var idToView = idToView.pop();
+        toggleDefinition(idToView + '_definition');
+    });
+}
 
 
 function toggleDefinition(toShow) {
@@ -229,12 +263,31 @@ function saveData() {
 
 loadWords();
 
+function dateSearch() {
+
+    // console.log((new Date("")).getTime());
+
+    var startDate = $('#startDate').val() == '' ? 0 : $('#startDate').val();
+    var endDate = $('#endDate').val() == '' ? 0 : $('#endDate').val();
+
+    var contentId = 'wordsTable';
+    var skeletonId = 'skeleton';
+
+    hideContentShowSkeletons(contentId, skeletonId);
+    var functionsOnSuccess = [
+        [showContentHideSkeletons, [contentId, skeletonId, 'response']],
+    ];
+
+    ajax('/date-search/' + startDate + '/' + endDate, 'GET', functionsOnSuccess);
+
+}
+
+
 function loadWords(wordToLoad) {
 
     if (wordToLoad === undefined) {
         wordToLoad = 0;
     }
-
     var contentId = 'wordsTable';
     var skeletonId = 'skeleton';
 

@@ -26,8 +26,10 @@ Auth::routes();
 Route::get('/loadWords/{wordToLoad}', [WordController::class, 'index']);
 Route::post('/save-word', [WordController::class, 'store']);
 Route::post('/update-word', [WordController::class, 'update']);
+Route::post('/mark-not-learned', [WordController::class, 'markNotLearned']);
 
 Route::get('/search-word/{typedString}', [SearchController::class, 'index']);
+Route::get('/date-search/{startDate}/{endDate}', [SearchController::class, 'dateSearch']);
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -6,17 +6,21 @@ use App\Models\Word;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use SebastianBergmann\Environment\Console;
 
 class WordController extends Controller
 {
     public function index($wordToLoad)
     {
         if ($wordToLoad) {
-            Word::where('word', $wordToLoad)->update([
+            Word::where('word', $wordToLoad)
+            ->where('user_id', Auth::user()->id)
+            ->update([
                 'learned' => 0
             ]);
-            
+
             $words = Word::where('word' ,$wordToLoad)
+                ->where('user_id', Auth::user()->id)
                 ->get();
         }else{
             $words = Word::where('user_id', Auth::user()->id)
@@ -24,10 +28,6 @@ class WordController extends Controller
             ->where('deleted', 0)
             ->get();
         }
-
-
-        
-
 
         $variables = [
             'words' => $words
@@ -65,5 +65,13 @@ class WordController extends Controller
                 'definition' => $request->definition
             ]);
         }
+    }
+
+    public function markNotLearned(Request $request)
+    {
+        Word::where('id', $request->wordId)->update([
+            'learned' => 0
+        ]);
+        
     }
 }

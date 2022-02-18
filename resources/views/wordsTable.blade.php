@@ -6,8 +6,9 @@
         <tr id="wordRow_{{ $word->id }}">
             <th scope="row">
                 <input 
+
                 class="wordCheck"
-                type="checkbox" name="select" id="wordCheck_{{ $word->id }}">
+                type="hidden" name="select" id="wordCheck_{{ $word->id }}">
                 <label for="wordCheck_{{ $word->id }}">{{ ++$counter }}. {{ $word->word }}</label>
 
             </th>
@@ -21,14 +22,17 @@
             <td>
 
                 <?php if ($word->learned) { ?>
-                <button class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Click to mark not learned"
-                onclick="markNotLearned()"
+                <button 
+                id="btnNotLearned_{{ $word->id }}"
+                class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Click to mark not learned"
+                onclick="markNotLearned({{ $word->id }})"
                 >
                     <img src="/images/check2-circle.svg" alt="Learned">
                 </button>
                 
                 <?php }else { ?>
-                <button class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Click to mark learned" onclick="markLearned({{ $word->id }}, {{ $word->no_of_read }})">
+                <button 
+                class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Click to mark learned" onclick="markLearned({{ $word->id }}, {{ $word->no_of_read }})">
                     <img src="/images/dash-circle.svg" alt="Not learned">
                 </button>
                 
