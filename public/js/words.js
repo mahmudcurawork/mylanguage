@@ -119,7 +119,7 @@ function markNotLearned(wordId) {
 
     var formData = new FormData;
     formData.append('wordId', wordId);
-    $('#btnNotLearned_'+wordId).fadeOut("slow");
+    $('#btnNotLearned_' + wordId).fadeOut("slow");
 
     // $('#wordRow_' + wordId).fadeOut("slow");
 
@@ -261,7 +261,7 @@ function saveData() {
 
 }
 
-loadWords();
+
 
 function dateSearch() {
 
@@ -282,6 +282,20 @@ function dateSearch() {
 
 }
 
+function loadWordsOnRead(){
+    var readNumber = $('#no_of_read').val();
+    var contentId = 'wordsTable';
+    var skeletonId = 'skeleton';
+
+    hideContentShowSkeletons(contentId, skeletonId);
+    var functionsOnSuccess = [
+        [showContentHideSkeletons, [contentId, skeletonId, 'response']],
+    ];
+
+    ajax('/loadWordsOnRead/' + readNumber, 'GET', functionsOnSuccess);
+}
+
+
 
 function loadWords(wordToLoad) {
 
@@ -298,6 +312,21 @@ function loadWords(wordToLoad) {
 
     ajax('/loadWords/' + wordToLoad, 'GET', functionsOnSuccess);
 
+}
+
+loadWords();
+loadNumbers();
+
+function loadNumbers() {
+    var contentId = 'no_of_read';
+    var skeletonId = 'skeleton';
+
+    hideContentShowSkeletons(contentId, skeletonId);
+    var functionsOnSuccess = [
+        [showContentHideSkeletons, [contentId, skeletonId, 'response']],
+    ];
+
+    ajax('/load-numbers', 'GET', functionsOnSuccess);
 }
 
 

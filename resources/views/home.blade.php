@@ -19,6 +19,7 @@
                                 {{-- <button class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="delete">
                                     <img src="/images/trash.svg" alt="trash icon" width="25" height="25">
                                 </button> --}}
+                                
                                 <button onclick="viewAll()" id="viewAll" class="btn btn-secondary" data-toggle="tooltip"
                                     data-placement="top" title="view">
                                     <img src="/images/eye.svg" alt="trash icon" width="25" height="25">
@@ -61,19 +62,20 @@
                         </div>
                         <div class="row">
                             <div class="col-6">
-
+                                <button onclick="loadWords('history')" id="history" class="btn btn-secondary" data-toggle="tooltip"
+                                    data-placement="top" title="History">
+                                    <img src="/images/clock-history.svg" alt="history icon" width="25" height="25">
+                                </button>
 
                             </div>
-                            <div class="col-6 d-flex">
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>No of times read</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
+                            <div class="col-5 d-flex">
+                                <select 
+                                id="no_of_read" 
+                                onchange="loadWordsOnRead()"
+                                class="form-select" aria-label="Default select example">
+                                    
                                 </select>
-                                <button class="btn btn-secondary">
-                                    <img src="/images/search.svg" alt="search icon">
-                                </button>
+                                
                             </div>
                         </div>
 

@@ -24,6 +24,11 @@ use App\Http\Controllers\SearchController;
 Auth::routes();
 
 Route::get('/loadWords/{wordToLoad}', [WordController::class, 'index']);
+
+Route::get('/loadWordsOnRead/{readNumber}', [WordController::class, 'loadWordsOnRead']);
+
+Route::get('/load-numbers', [WordController::class, 'numbers']);
+
 Route::post('/save-word', [WordController::class, 'store']);
 Route::post('/update-word', [WordController::class, 'update']);
 Route::post('/mark-not-learned', [WordController::class, 'markNotLearned']);
