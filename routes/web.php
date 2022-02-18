@@ -23,7 +23,7 @@ use App\Http\Controllers\SearchController;
 
 Auth::routes();
 
-Route::get('/loadWords', [WordController::class, 'index']);
+Route::get('/loadWords/{wordToLoad}', [WordController::class, 'index']);
 Route::post('/save-word', [WordController::class, 'store']);
 Route::post('/update-word', [WordController::class, 'update']);
 

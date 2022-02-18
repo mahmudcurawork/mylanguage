@@ -5,8 +5,10 @@
     @foreach ($words as $word)
         <tr id="wordRow_{{ $word->id }}">
             <th scope="row">
-                <input type="checkbox" name="select" id="select1">
-                <label for="select1">{{ ++$counter }}. {{ $word->word }}</label>
+                <input 
+                class="wordCheck"
+                type="checkbox" name="select" id="wordCheck_{{ $word->id }}">
+                <label for="wordCheck_{{ $word->id }}">{{ ++$counter }}. {{ $word->word }}</label>
 
             </th>
             <td>
@@ -19,7 +21,9 @@
             <td>
 
                 <?php if ($word->learned) { ?>
-                <button class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Click to mark not learned">
+                <button class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Click to mark not learned"
+                onclick="markNotLearned()"
+                >
                     <img src="/images/check2-circle.svg" alt="Learned">
                 </button>
                 

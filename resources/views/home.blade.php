@@ -33,9 +33,9 @@
 
                                 <input type="text" onkeyup="searchWord(event)" name="searchWord" id="searchWord"
                                     class="form-control" placeholder="Search for words">
-                                <button class="btn btn-secondary">
-                                    <img src="/images/search.svg" alt="search icon">
-                                </button>
+                                    <span style="cursor: pointer" onclick="clearField('searchWord')"><img src="/images/x-lg-white.svg"
+                                        alt="clear"></span>
+                                
                             </div>
 
                         </div>
@@ -76,7 +76,9 @@
                             <thead>
                                 <tr>
                                     <th scope="col">
-                                        <input type="checkbox" name="multipleDelete" id="multipleDelete">
+                                        <input type="checkbox" name="checkAll" id="checkAll"
+                                        onchange="checkAll()"
+                                        >
                                         <span>Word</span>
                                     </th>
                                     <th scope="col">Definition</th>

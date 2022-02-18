@@ -23,6 +23,9 @@ function searchWord(event) {
     var wordArr = [];
 
     var typedString = $('#searchWord').val();
+    if (typedString == '') {
+        return false;
+    }
     $.ajax({
         url: '/search-word/' + typedString,
         type: 'GET',
@@ -33,34 +36,38 @@ function searchWord(event) {
         },
         success: function (response) {
             $.each(response, function (index, value) {
-                wordArr.push(value.word);
+                wordArr.push(value.word + ' (' + value.definition + ')');
             });
         }
     });
 
     $("#searchWord").autocomplete({
         source: wordArr,
-        select: function(event, ui){
-            console.log('select', ui.item.value);
+        select: function (event, ui) {
+            var selectedArr = ui.item.value.split(' (');
+            var selectedWord = selectedArr[0];
+            loadWords(selectedWord);
+
         }
     });
+}
 
+function checkAll() {
+    if ($('#checkAll:checked').length) {
 
-    // $('#confirm').modal('hide');
-    // var requestFor = 'delete';
+        $('[id^="wordCheck_"]').each(function () {
+            $('#'+this.id).prop('checked', true);
+        });
+        
+        // $('#test').prop('checked', true);
 
-    // var formData = new FormData;
-    // formData.append('wordId', wordId);
-    // formData.append('requestFor', requestFor);
-
-    // ajax('/update-word', 'POST', '', formData);
-
-
-
-    if (event.which == 13) {
-        $('#word').val(typedString);
-        addWord();
+        
+    } else {
+        $('[id^="wordCheck_"]').each(function () {
+            $('#'+this.id).prop('checked', false);
+        });
     }
+
 }
 
 
@@ -222,7 +229,11 @@ function saveData() {
 
 loadWords();
 
-function loadWords() {
+function loadWords(wordToLoad) {
+
+    if (wordToLoad === undefined) {
+        wordToLoad = 0;
+    }
 
     var contentId = 'wordsTable';
     var skeletonId = 'skeleton';
@@ -232,7 +243,7 @@ function loadWords() {
         [showContentHideSkeletons, [contentId, skeletonId, 'response']],
     ];
 
-    ajax('/loadWords', 'GET', functionsOnSuccess);
+    ajax('/loadWords/' + wordToLoad, 'GET', functionsOnSuccess);
 
 }
 
