@@ -53,35 +53,6 @@ function searchWord(event) {
     });
 }
 
-function linkToArticle(event) {
-
-    var typedString = $('#linkToArticle').val();
-    if (typedString == '') {
-        return false;
-    }
-    $.ajax({
-        url: '/link-to-article/' + typedString,
-        type: 'GET',
-        async: true,
-        dataType: 'json',
-        error: function () {
-            console.log("ajax error" + url);
-        },
-        success: function (response) {
-            $.each(response, function (index, value) {
-                articleArr.push(value.title);
-            });
-        }
-    });
-
-    $("#linkToArticle").autocomplete({
-        source: articleArr
-    });
-}
-
-
-
-
 
 function checkAll() {
     if ($('#checkAll:checked').length) {
@@ -249,10 +220,11 @@ function clearField(fieldId) {
 
 function addWord() {
     $('#wordModal').modal('show');
-    $('#saveData').attr('onclick', 'c()');
+    $('#saveData').attr('onclick', 'saveData()');
     var wordInSearchBox = $('#searchWord').val();
     $('#word').val(wordInSearchBox);
     $('#definition').val('');
+    loadArticles('articles');
 
 }
 
@@ -265,6 +237,7 @@ function addArticle() {
 
 }
 
+
 function updateData(wordId) {
 
     if (checkValidity()) {
@@ -276,11 +249,18 @@ function updateData(wordId) {
 
         var word = $('#word').val();
         var definition = $('#definition').val();
+        var articleId = $('#articles').val();
+
+        if (articleId == 0) {
+            articleId = 1;
+        }
+
 
         var formData = new FormData;
         formData.append('wordId', wordId);
         formData.append('word', word);
         formData.append('definition', definition);
+        formData.append('articleId', articleId);
 
         ajax('/update-word', 'POST', '', formData);
         loadWords();
@@ -295,7 +275,7 @@ function updateData(wordId) {
 }
 
 function hideModal(modalId) {
-    $('#'+modalId).modal('toggle');
+    $('#' + modalId).modal('toggle');
 }
 
 function saveData() {
@@ -304,12 +284,20 @@ function saveData() {
 
         var word = $('#word').val();
         var definition = $('#definition').val();
+        var articleId = $('#articles').val();
+
+        if (articleId == 0) {
+            articleId = 1;
+        }
 
         $('#wordModal').modal('hide');
 
         var formData = new FormData;
         formData.append('word', word);
         formData.append('definition', definition);
+        formData.append('articleId', articleId);
+        
+        
 
         ajax('/save-word', 'POST', '', formData);
         loadWords();
@@ -371,7 +359,20 @@ function dateSearch() {
 
 }
 
-function loadWordsOnRead(){
+function loadWordsOnArticle() {
+    var readNumber = $('#wordsOnArticle').val();
+    var contentId = 'wordsTable';
+    var skeletonId = 'skeleton';
+
+    hideContentShowSkeletons(contentId, skeletonId);
+    var functionsOnSuccess = [
+        [showContentHideSkeletons, [contentId, skeletonId, 'response']],
+    ];
+
+    ajax('/loadWordsOnArticle/' + readNumber, 'GET', functionsOnSuccess);
+}
+
+function loadWordsOnRead() {
     var readNumber = $('#no_of_read').val();
     var contentId = 'wordsTable';
     var skeletonId = 'skeleton';
@@ -410,10 +411,9 @@ function loadArticlesWord(articleToLoad) {
 
 loadWords();
 loadNumbers();
-loadArticles();
+loadArticles('wordsOnArticle');
 
-function loadArticles() {
-    var contentId = 'wordsOnArticle';
+function loadArticles(contentId) {
     var skeletonId = 'skeleton';
 
     hideContentShowSkeletons(contentId, skeletonId);

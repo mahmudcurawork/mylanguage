@@ -15,6 +15,7 @@ class Word extends Model
 
     protected $fillable = [
         'user_id',
+        'article_id',
         'word',
         'definition',
         'no_of_read',

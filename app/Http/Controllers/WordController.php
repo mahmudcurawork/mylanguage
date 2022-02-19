@@ -51,6 +51,7 @@ class WordController extends Controller
 
         Word::create([
             'user_id' => Auth::user()->id,
+            'article_id' => $request->articleId,
             'word' => $request->word,
             'definition' => $request->definition
         ]);
@@ -72,6 +73,7 @@ class WordController extends Controller
             Word::where('id', $request->wordId)->update([
                 'word' => $request->word,
                 'definition' => $request->definition
+
             ]);
         }
     }
@@ -113,4 +115,22 @@ class WordController extends Controller
         $response = View::make('wordsTable')->with($variables)->render();
         echo json_encode($response);
     }
+
+    public function loadWordsOnArticle($articleId)
+    {
+
+        $words = Word::where('article_id', $articleId)
+            ->where('user_id', Auth::user()->id)
+            ->orderBy('updated_at', 'desc')
+            ->get();
+
+        $variables = [
+            'words' => $words
+        ];
+
+        $response = View::make('wordsTable')->with($variables)->render();
+        echo json_encode($response);
+    }
+
+    
 }

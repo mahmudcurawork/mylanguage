@@ -16,12 +16,12 @@
 
                         <div class="row">
                             <div class="col-6">
-                                <button id="addArticle" onclick="addArticle()" class="btn btn-secondary" data-toggle="tooltip"
-                                    data-placement="top" title="Add article">
-                                    
+                                <button id="addArticle" onclick="addArticle()" class="btn btn-secondary"
+                                    data-toggle="tooltip" data-placement="top" title="Add article">
+
                                     <img src="/images/link.svg" alt="article icon" width="25" height="25">
                                 </button>
-                                
+
                                 <button id="addButton" onclick="addWord()" class="btn btn-secondary" data-toggle="tooltip"
                                     data-placement="top" title="add">
                                     <img src="/images/plus.svg" alt="trash icon" width="25" height="25">
@@ -58,7 +58,7 @@
                         </div>
                         <div class="row">
                             <div class="col-6 d-flex">
-                                <select id="wordsOnArticle" onchange="" class="form-select"
+                                <select id="wordsOnArticle" onchange="loadWordsOnArticle()" class="form-select"
                                     aria-label="Default select example">
 
                                 </select>
@@ -127,11 +127,11 @@
                             alt="clear"></span>
                 </div>
                 <div class="input-group">
-                    <input type="text" id="linkToArticle" 
-                    onkeyup="linkToArticle(event)"
-                    class="form-control modalForm" placeholder="Link to article">
-                    <span style="cursor: pointer" onclick="clearField('linkToArticle')"><img src="/images/x-lg.svg"
-                            alt="clear"></span>
+                    <select id="articles" 
+
+                    class="form-select" aria-label="Default select example">
+
+                    </select>
                 </div>
             </div>
             <div class="modal-footer">
@@ -160,13 +160,14 @@
             </div>
             <div class="modal-body">
                 <div class="input-group">
-                    <input type="text" id="article_title" class="form-control articleModalForm mb-3" placeholder="Title">
+                    <input type="text" id="article_title" class="form-control articleModalForm mb-3"
+                        placeholder="Title">
                     <span style="cursor: pointer" onclick="clearField('article_title')"><img src="/images/x-lg.svg"
                             alt="clear"></span>
                 </div>
                 <div class="input-group">
-                    <input type="text" id="article_link" 
-                    class="form-control articleModalForm" placeholder="Article reference">
+                    <input type="text" id="article_link" class="form-control articleModalForm"
+                        placeholder="Article reference">
                     <span style="cursor: pointer" onclick="clearField('article_link')"><img src="/images/x-lg.svg"
                             alt="clear"></span>
                 </div>

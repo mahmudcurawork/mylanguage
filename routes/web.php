@@ -27,6 +27,8 @@ Auth::routes();
 Route::get('/loadWords/{wordToLoad}', [WordController::class, 'index']);
 
 Route::get('/loadWordsOnRead/{readNumber}', [WordController::class, 'loadWordsOnRead']);
+Route::get('/loadWordsOnArticle/{articleId}', [WordController::class, 'loadWordsOnArticle']);
+
 Route::get('/load-articles', [ArticleController::class, 'index']);
 
 Route::get('/load-numbers', [WordController::class, 'numbers']);

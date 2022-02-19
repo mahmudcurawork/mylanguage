@@ -1,4 +1,4 @@
-<option selected>No of times reads</option>
+<option value="0" selected>Articles</option>
 
 @if (count($articles) > 0)
     @foreach ($articles as $article)
