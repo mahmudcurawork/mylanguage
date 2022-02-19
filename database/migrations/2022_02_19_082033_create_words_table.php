@@ -21,13 +21,17 @@ class CreateWordsTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
+            $table->foreignId('article_id')
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
 
             $table->string('word')->nullable();
             $table->string('definition')->nullable();
             $table->integer('no_of_read')->default(0);
             $table->boolean('learned')->default(0);
             $table->boolean('deleted')->default(0);
-
 
             $table->timestamps();
         });

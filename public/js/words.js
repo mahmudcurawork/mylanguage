@@ -53,14 +53,35 @@ function searchWord(event) {
     });
 }
 
-function viewAll() {
+function linkToArticle(event) {
 
-    console.log('hello');
+    var typedString = $('#linkToArticle').val();
+    if (typedString == '') {
+        return false;
+    }
+    $.ajax({
+        url: '/link-to-article/' + typedString,
+        type: 'GET',
+        async: true,
+        dataType: 'json',
+        error: function () {
+            console.log("ajax error" + url);
+        },
+        success: function (response) {
+            $.each(response, function (index, value) {
+                articleArr.push(value.title);
+            });
+        }
+    });
 
-    // $('[id^="wordCheck_:checked"]').each(function () {
-    //     console.log(this.id);
-    // });
+    $("#linkToArticle").autocomplete({
+        source: articleArr
+    });
 }
+
+
+
+
 
 function checkAll() {
     if ($('#checkAll:checked').length) {
@@ -81,13 +102,22 @@ function checkAll() {
 }
 
 
+
+
 $('.modalForm').on('keyup', function (e) {
     if (e.which == 13) {
         $('#saveData').click();
     } else {
         checkValidity();
     }
+});
 
+$('.articleModalForm').on('keyup', function (e) {
+    if (e.which == 13) {
+        $('#saveArticle').click();
+    } else {
+        checkArticleValidity();
+    }
 });
 
 function deleteData(wordId) {
@@ -171,6 +201,32 @@ function checkValidity() {
 
 }
 
+function checkArticleValidity() {
+
+    var flag = 1;
+
+    if (!$('#article_title').val()) {
+        $('#article_title').addClass('border-danger');
+        flag = flag - 1;
+    } else {
+        $('#article_title').removeClass('border-danger');
+    }
+
+    if (!$('#article_link').val()) {
+        $('#article_link').addClass('border-danger');
+        flag = flag - 1;
+    } else {
+        $('#article_link').removeClass('border-danger');
+    }
+
+    if (flag < 1) {
+        return false;
+    } else {
+        return true;
+    }
+
+}
+
 
 
 function viewAll() {
@@ -193,10 +249,19 @@ function clearField(fieldId) {
 
 function addWord() {
     $('#wordModal').modal('show');
-    $('#saveData').attr('onclick', 'saveData()');
+    $('#saveData').attr('onclick', 'c()');
     var wordInSearchBox = $('#searchWord').val();
     $('#word').val(wordInSearchBox);
     $('#definition').val('');
+
+}
+
+function addArticle() {
+    $('#articleModal').modal('show');
+    $('#saveArticle').attr('onclick', 'saveArticle()');
+    var articleSearch = $('#articleSearch').val();
+    $('#article_title').val(articleSearch);
+    $('#article_link').val('');
 
 }
 
@@ -229,15 +294,13 @@ function updateData(wordId) {
 
 }
 
-function hideModal() {
-    $('#wordModal').modal('toggle');
+function hideModal(modalId) {
+    $('#'+modalId).modal('toggle');
 }
 
 function saveData() {
 
     if (checkValidity()) {
-
-
 
         var word = $('#word').val();
         var definition = $('#definition').val();
@@ -253,6 +316,32 @@ function saveData() {
 
         $('#word').val('');
         $('#definition').val('');
+
+    } else {
+        console.log('Error saving data');
+    }
+
+
+}
+
+function saveArticle() {
+
+    if (checkArticleValidity()) {
+
+        var article_title = $('#article_title').val();
+        var article_link = $('#article_link').val();
+
+        $('#articleModal').modal('hide');
+
+        var formData = new FormData;
+        formData.append('article_title', article_title);
+        formData.append('article_link', article_link);
+
+        ajax('/save-article', 'POST', '', formData);
+        loadArticles();
+
+        $('#article_title').val('');
+        $('#article_link').val('');
 
     } else {
         console.log('Error saving data');
@@ -314,8 +403,26 @@ function loadWords(wordToLoad) {
 
 }
 
+function loadArticlesWord(articleToLoad) {
+
+
+}
+
 loadWords();
 loadNumbers();
+loadArticles();
+
+function loadArticles() {
+    var contentId = 'wordsOnArticle';
+    var skeletonId = 'skeleton';
+
+    hideContentShowSkeletons(contentId, skeletonId);
+    var functionsOnSuccess = [
+        [showContentHideSkeletons, [contentId, skeletonId, 'response']],
+    ];
+
+    ajax('/load-articles', 'GET', functionsOnSuccess);
+}
 
 function loadNumbers() {
     var contentId = 'no_of_read';

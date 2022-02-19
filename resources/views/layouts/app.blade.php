@@ -54,10 +54,16 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Suggestions</a>
+                            <a class="nav-link"><button onclick="viewAll()" id="viewAll" class="btn btn-secondary" data-toggle="tooltip"
+                                data-placement="top" title="view">
+                                <img src="/images/eye.svg" alt="trash icon" width="25" height="25">
+                            </button></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Suggestions 2</a>
+                            <a class="nav-link"><button onclick="loadWords('history')" id="history" class="btn btn-secondary" data-toggle="tooltip"
+                                data-placement="top" title="History">
+                                <img src="/images/clock-history.svg" alt="history icon" width="25" height="25">
+                            </button></a>
                         </li>
                     </ul>
 
