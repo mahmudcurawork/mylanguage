@@ -71,6 +71,10 @@ class WordController extends Controller
             ]);
         } else {
             Word::where('id', $request->wordId)->update([
+                'article_id' => $request->articleId,
+             
+
+
                 'word' => $request->word,
                 'definition' => $request->definition
 

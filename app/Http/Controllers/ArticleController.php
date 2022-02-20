@@ -19,11 +19,12 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function index(){
+    public function index($articleId){
         $articles = Article::all();
 
         $variables = [
-            'articles' => $articles
+            'articles' => $articles,
+            'articleId' => $articleId
         ];
 
         $response = View::make('selectFormArticle')->with($variables)->render();

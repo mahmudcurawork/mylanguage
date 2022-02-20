@@ -42,7 +42,7 @@
             </td>
             <td>
                 <button class="btn btn-secondary" 
-                onclick="editData({{ $word->id }},'{{ $word->word }}','{{ $word->definition }}')"
+                onclick="editData({{ $word->id }},'{{ $word->word }}','{{ $word->definition }}', {{ $word->article_id }})"
                 data-toggle="tooltip" data-placement="top" title="edit">
                     <img src="/images/pencil.svg" alt="edit icon">
                 </button>
