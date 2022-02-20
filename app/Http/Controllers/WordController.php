@@ -35,6 +35,7 @@ class WordController extends Controller
             $words = Word::where('user_id', Auth::user()->id)
                 ->where('learned', 0)
                 ->where('deleted', 0)
+                ->orderBy('article_id', 'desc')
                 ->get();
         }
 

@@ -35,10 +35,8 @@ class SearchController extends Controller
 
             $words = Word::where('user_id', Auth::user()->id)
             ->where('updated_at', 'like', $wildCard)
+            ->orderBy('article_id', 'desc')
             ->get();
-
-
-            
 
         } elseif ($startDate == 0 && $endDate != 0) {
             $timeStamp = strtotime($endDate);
@@ -48,6 +46,7 @@ class SearchController extends Controller
 
             $words = Word::where('user_id', Auth::user()->id)
             ->where('updated_at', 'like', $wildCard)
+            ->orderBy('article_id', 'desc')
             ->get();
 
         } elseif ($startDate != 0 && $endDate != 0) {
@@ -58,6 +57,7 @@ class SearchController extends Controller
 
             $words = Word::where('user_id', Auth::user()->id)
                 ->whereBetween('updated_at', [$startDate, $endDate])
+                ->orderBy('article_id', 'desc')
                 ->get();
 
             

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WordController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\LoadModalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Route::get('/loadWordsOnArticle/{articleId}', [WordController::class, 'loadWords
 Route::get('/load-articles/{articleId}', [ArticleController::class, 'index']);
 
 Route::get('/load-numbers', [WordController::class, 'numbers']);
+Route::get('//load-add-modal', [LoadModalController::class, 'addModal']);
 
 Route::post('/save-word', [WordController::class, 'store']);
 Route::post('/save-article', [ArticleController::class, 'store']);

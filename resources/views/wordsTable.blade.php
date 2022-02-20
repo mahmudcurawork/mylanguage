@@ -1,7 +1,5 @@
 @if ($words->count() > 0)
-    @php
-        $counter = 0;
-    @endphp
+
     @foreach ($words as $word)
         <tr id="wordRow_{{ $word->id }}">
             <th scope="row">
@@ -9,7 +7,7 @@
 
                 class="wordCheck"
                 type="hidden" name="select" id="wordCheck_{{ $word->id }}">
-                <label for="wordCheck_{{ $word->id }}">{{ ++$counter }}. {{ $word->word }}</label>
+                <label for="wordCheck_{{ $word->id }}">{{ $word->article_id }}. {{ $word->word }}</label>
 
             </th>
             <td>

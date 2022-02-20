@@ -20,7 +20,10 @@ class ArticleController extends Controller
     }
 
     public function index($articleId){
-        $articles = Article::all();
+        $articles = Article::where('user_id', Auth::user()->id)
+        ->orderBy('created_at', 'desc')
+        ->get()
+        ;
 
         $variables = [
             'articles' => $articles,

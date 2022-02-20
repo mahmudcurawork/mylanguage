@@ -127,9 +127,7 @@
                             alt="clear"></span>
                 </div>
                 <div class="input-group">
-                    <select id="articles" name="articles"
-
-                    class="form-select" aria-label="">
+                    <select id="articles" name="articles" class="form-select" aria-label="">
 
                     </select>
                 </div>
