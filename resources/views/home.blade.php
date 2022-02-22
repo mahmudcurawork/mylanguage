@@ -89,9 +89,14 @@
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
+                            
                             <tbody id="wordsTable">
-
-
+                                <tr id="skeleton1">
+                                    <td>Loading...</td>
+                                    <td>Loading...</td>
+                                    <td>Loading...</td>
+                                    <td>Loading...</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -100,10 +105,10 @@
         </div>
     </div>
 
-    <div id="skeleton">
-        Loading...
-    </div>
+    
+
 @endsection
+
 
 
 

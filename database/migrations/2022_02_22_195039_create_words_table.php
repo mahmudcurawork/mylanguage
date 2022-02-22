@@ -16,16 +16,9 @@ class CreateWordsTable extends Migration
         Schema::create('words', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('user_id')
-                ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
 
-            $table->foreignId('article_id')
-                ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
+            $table->foreignId('article_id')->constrained()->cascadeOnDelete();
 
             $table->string('word')->nullable();
             $table->string('definition')->nullable();

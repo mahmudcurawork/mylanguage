@@ -405,12 +405,18 @@ function loadWords(wordToLoad) {
         [showContentHideSkeletons, [contentId, skeletonId, 'response']],
     ];
 
-    ajax('/loadWords/' + wordToLoad, 'GET', functionsOnSuccess);
+    setTimeout(() => {
+        ajax('/loadWords/' + wordToLoad, 'GET', functionsOnSuccess);
+    }, 0);
+
+    
 
 }
 
+setTimeout(() => {
+    loadWords();
+}, 0);
 
-loadWords();
 loadNumbers();
 loadArticles('wordsOnArticle', 0);
 
@@ -428,14 +434,18 @@ function loadArticles(contentId, articleId) {
 
 function loadNumbers() {
     var contentId = 'no_of_read';
-    var skeletonId = 'skeleton';
+    var skeletonId = 'skeleton1';
 
     hideContentShowSkeletons(contentId, skeletonId);
     var functionsOnSuccess = [
         [showContentHideSkeletons, [contentId, skeletonId, 'response']],
     ];
 
-    ajax('/load-numbers', 'GET', functionsOnSuccess);
+    setTimeout(() => {
+        ajax('/load-numbers', 'GET', functionsOnSuccess);
+    }, 0);
+
+    
 }
 
 
