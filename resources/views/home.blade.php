@@ -108,7 +108,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="wordModal" tabindex="-2" aria-labelledby="wordModalLabel" aria-hidden="true">
+<div class="modal fade" id="wordModal" tabindex="-2" aria-labelledby="wordModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -149,7 +149,7 @@
 {{-- Article modal --}}
 
 
-<div class="modal fade" id="articleModal" tabindex="-2" aria-labelledby="articleModalLabel" aria-hidden="true">
+<div class="modal fade" id="articleModal" tabindex="-2" aria-labelledby="articleModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -186,18 +186,18 @@
 
 {{-- are you sure box --}}
 
-<div class="modal fade" id="confirm" tabindex="-2" aria-labelledby="wordModalLabel" aria-hidden="true">
+<div class="modal fade" id="confirm" tabindex="-2" aria-labelledby="wordModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
                 Are you sure to delete this word?
             </div>
-
+    
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" id="actionYes" onclick="">Delete</button>
-
+    
                 <button type="button" class="btn btn-secondary" id="actionNo" onclick="cancelAction()">Cancel</button>
             </div>
         </div>
-    </div>
+    </div>    
 </div>
