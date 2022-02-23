@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\Word;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -49,10 +50,19 @@ class WordController extends Controller
 
     public function store(Request $request)
     {
+        if(!$request->articleId){
+            $anonymousId = Article::where('title', 'Anonymous')
+            ->where('user_id', Auth::user()->id)
+            ->pluck('id');
+
+            $articleId = $anonymousId[0];
+        }else{
+            $articleId = $request->articleId;
+        }
 
         Word::create([
             'user_id' => Auth::user()->id,
-            'article_id' => $request->articleId,
+            'article_id' => $articleId,
             'word' => $request->word,
             'definition' => $request->definition
         ]);

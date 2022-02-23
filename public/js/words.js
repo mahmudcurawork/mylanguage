@@ -345,9 +345,9 @@ function saveData() {
         var definition = $('#definition').val();
         var articleId = $('#articles').val();
 
-        if (articleId == 0) {
-            articleId = 1;
-        }
+        // if (articleId == 0) {
+        //     articleId = $('#anonymousId').val();
+        // }
 
         $('#wordModal').modal('hide');
 
