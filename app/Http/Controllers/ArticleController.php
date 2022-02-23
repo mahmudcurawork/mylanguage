@@ -19,11 +19,34 @@ class ArticleController extends Controller
         ]);
     }
 
+    public function update(Request $request){
+
+        if($request->requestFor == 'deleteArticle') {
+            Article::find($request->articleId)->delete();
+        }else{
+            Article::where('id', $request->articleId)->update([
+                'title' => $request->article_title,
+                'reference' => $request->article_link
+            ]);
+        }
+
+        
+    }
+
     public function index($articleId){
         $articles = Article::where('user_id', Auth::user()->id)
         ->orderBy('created_at', 'desc')
         ->get()
         ;
+
+        if(!count($articles)){
+            Article::create([
+                'user_id' => Auth::user()->id,
+                'title' => 'Anonymous',
+                'reference' => 'Collected from unknown place'
+            ]);
+        }
+        
 
         $variables = [
             'articles' => $articles,
@@ -31,6 +54,24 @@ class ArticleController extends Controller
         ];
 
         $response = View::make('selectFormArticle')->with($variables)->render();
+        echo json_encode($response);
+    }
+
+    public function view(){
+        $articles = Article::where('user_id', Auth::user()->id)
+        ->orderBy('created_at', 'desc')
+        ->get()
+        ;
+
+
+        $variables = [
+            'articles' => $articles
+        ];
+
+       
+
+        $response = View::make('articlesTable')->with($variables)->render();
+
         echo json_encode($response);
     }
 }

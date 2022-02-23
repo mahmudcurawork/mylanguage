@@ -8,6 +8,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+
     <title>{{ config('app.name', 'MyLanguage') }}</title>
 
     {{-- Popper js for tooltip --}}
@@ -53,12 +55,24 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
+
+                        <li class="nav-item">
+                            <a 
+                            class="nav-link" 
+                            role="button"
+                            onclick="viewArticles()"
+                            >
+                                Links
+                            </a>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link"><button onclick="viewAll()" id="viewAll" class="btn btn-secondary" data-toggle="tooltip"
                                 data-placement="top" title="view">
                                 <img src="/images/eye.svg" alt="trash icon" width="25" height="25">
                             </button></a>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link"><button onclick="loadWords('history')" id="history" class="btn btn-secondary" data-toggle="tooltip"
                                 data-placement="top" title="History">

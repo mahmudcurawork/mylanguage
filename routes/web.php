@@ -31,12 +31,17 @@ Route::get('/loadWordsOnRead/{readNumber}', [WordController::class, 'loadWordsOn
 Route::get('/loadWordsOnArticle/{articleId}', [WordController::class, 'loadWordsOnArticle']);
 
 Route::get('/load-articles/{articleId}', [ArticleController::class, 'index']);
+Route::get('/view-articles', [ArticleController::class, 'view']);
+
+
 
 Route::get('/load-numbers', [WordController::class, 'numbers']);
 Route::get('//load-add-modal', [LoadModalController::class, 'addModal']);
 
 Route::post('/save-word', [WordController::class, 'store']);
 Route::post('/save-article', [ArticleController::class, 'store']);
+
+Route::post('/update-article', [ArticleController::class, 'update']);
 
 
 Route::post('/update-word', [WordController::class, 'update']);

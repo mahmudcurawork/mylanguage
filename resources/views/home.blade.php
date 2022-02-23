@@ -175,6 +175,8 @@
                             alt="clear"></span>
                 </div>
             </div>
+
+            {{-- checkArticleValidity --}}
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" onclick="hideModal('articleModal')">
                     <img src="/images/x-lg-white.svg" alt="close icon">

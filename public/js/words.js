@@ -20,6 +20,13 @@ function editData(wordId, word, definition, articleId) {
     $('#saveData').attr('onclick', 'updateData(' + wordId + ')');
 }
 
+function editArticle(articleId, title, link) {
+    $('#article_title').val(title);
+    $('#article_link').val(link);
+    $('#articleModal').modal('show');
+    $('#saveArticle').attr('onclick', 'updateArticle(' + articleId + ')');
+}
+
 
 function searchWord(event) {
 
@@ -98,6 +105,11 @@ function deleteData(wordId) {
     $('#actionYes').attr('onclick', 'deleteWordConfirmed(' + wordId + ')');
 }
 
+function deleteArticle(articleId) {
+    $('#confirm').modal('show');
+    $('#actionYes').attr('onclick', 'deleteArticleConfirmed(' + articleId + ')');
+}
+
 function cancelAction() {
     $('#confirm').modal('hide');
     $('#actionYes').attr('onclick', '');
@@ -115,6 +127,20 @@ function deleteWordConfirmed(wordId) {
     ajax('/update-word', 'POST', '', formData);
 
     $('#wordRow_' + wordId).fadeOut("slow");
+}
+
+function deleteArticleConfirmed(articleId) {
+
+    $('#confirm').modal('hide');
+    var requestFor = 'deleteArticle';
+
+    var formData = new FormData;
+    formData.append('articleId', articleId);
+    formData.append('requestFor', requestFor);
+
+    ajax('/update-article', 'POST', '', formData);
+
+    $('#articleRow_' + articleId).fadeOut("slow");
 }
 
 function markNotLearned(wordId) {
@@ -237,6 +263,37 @@ function addArticle() {
     var articleSearch = $('#articleSearch').val();
     $('#article_title').val(articleSearch);
     $('#article_link').val('');
+
+}
+
+function updateArticle(articleId) {
+
+    if (checkArticleValidity()) {
+
+
+        var article_title = $('#article_title').val();
+        var article_link = $('#article_link').val();
+
+        $('#articleModal').modal('hide');
+
+        var formData = new FormData;
+        formData.append('article_title', article_title);
+        formData.append('article_link', article_link);
+        formData.append('articleId', articleId);
+
+        setTimeout(() => {
+            ajax('/update-article', 'POST', '', formData);
+        }, 0);
+
+        
+        viewArticles();
+
+        $('#article_title').val('');
+        $('#article_link').val('');
+
+    } else {
+        console.log('Error updating data');
+    }
 
 }
 
@@ -390,6 +447,20 @@ function loadWordsOnRead() {
     ajax('/loadWordsOnRead/' + readNumber, 'GET', functionsOnSuccess);
 }
 
+function viewArticles(){
+    var contentId = 'wordsTable';
+    var skeletonId = 'skeleton1';
+
+    hideContentShowSkeletons(contentId, skeletonId);
+    var functionsOnSuccess = [
+        [showContentHideSkeletons, [contentId, skeletonId, 'response']],
+    ];
+
+    setTimeout(() => {
+        ajax('/view-articles', 'GET', functionsOnSuccess);
+    }, 0);
+}
+
 
 
 function loadWords(wordToLoad) {
@@ -408,9 +479,6 @@ function loadWords(wordToLoad) {
     setTimeout(() => {
         ajax('/loadWords/' + wordToLoad, 'GET', functionsOnSuccess);
     }, 0);
-
-    
-
 }
 
 setTimeout(() => {
@@ -447,6 +515,8 @@ function loadNumbers() {
 
     
 }
+
+
 
 
 function ajax(url, method, functionsOnSuccess, form) {
