@@ -33,8 +33,6 @@ Route::get('/loadWordsOnArticle/{articleId}', [WordController::class, 'loadWords
 Route::get('/load-articles/{articleId}', [ArticleController::class, 'index']);
 Route::get('/view-articles', [ArticleController::class, 'view']);
 
-
-
 Route::get('/load-numbers', [WordController::class, 'numbers']);
 Route::get('//load-add-modal', [LoadModalController::class, 'addModal']);
 

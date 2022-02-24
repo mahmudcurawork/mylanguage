@@ -417,7 +417,6 @@ function dateSearch() {
 }
 
 function loadWordsOnArticle(articleNumber = $('#wordsOnArticle').val()) {
-    // var articleNumber = $('#wordsOnArticle').val();
 
     if (articleNumber == 0) {
         loadWords();

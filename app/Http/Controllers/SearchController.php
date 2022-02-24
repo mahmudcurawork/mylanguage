@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\View;
 
 class SearchController extends Controller
 {
-    //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index($typedString)
     {

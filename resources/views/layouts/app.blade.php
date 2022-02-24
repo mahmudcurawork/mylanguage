@@ -8,7 +8,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="icon" type="image/png" href="/images/favicon.png">
+    {{-- <link rel="icon" type="ico" href="/images/favicon.ico"> --}}
+    <link rel="shortcut icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png" type="image/x-icon">
 
     <title>{{ config('app.name', 'MyLanguage') }}</title>
 
@@ -35,19 +37,17 @@
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <script src="js/words.js"></script>
 
-    
+
 
 </head>
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-black shadow-sm"
-        style="
+        <nav class="navbar navbar-expand-md navbar-dark bg-black shadow-sm" style="
         position: fixed;
         z-index: 1;
         width: 100%;
-        "
-        >
+        ">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'MyLanguage') }}
@@ -60,32 +60,35 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
 
-                        <li class="nav-item">
-                            <a 
-                            class="nav-link" 
-                            role="button"
-                            onclick="viewArticles()"
-                            >
-                                Links
-                            </a>
-                        </li>
+                    @auth
+                        <ul class="navbar-nav me-auto">
 
-                        <li class="nav-item">
-                            <a class="nav-link"><button onclick="viewAll()" id="viewAll" class="btn btn-secondary" data-toggle="tooltip"
-                                data-placement="top" title="view">
-                                <img src="/images/eye.svg" alt="trash icon" width="25" height="25">
-                            </button></a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" role="button" onclick="viewArticles()">
+                                    Links
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link"><button onclick="loadWords('history')" id="history" class="btn btn-secondary" data-toggle="tooltip"
-                                data-placement="top" title="History">
-                                <img src="/images/clock-history.svg" alt="history icon" width="25" height="25">
-                            </button></a>
-                        </li>
-                    </ul>
+                            <li class="nav-item">
+                                <a class="nav-link"><button onclick="viewAll()" id="viewAll" class="btn btn-secondary"
+                                        data-toggle="tooltip" data-placement="top" title="view">
+                                        <img src="/images/eye.svg" alt="trash icon" width="25" height="25">
+                                    </button></a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link"><button onclick="loadWords('history')" id="history"
+                                        class="btn btn-secondary" data-toggle="tooltip" data-placement="top"
+                                        title="History">
+                                        <img src="/images/clock-history.svg" alt="history icon" width="25" height="25">
+                                    </button></a>
+                            </li>
+                        </ul>
+                    @endauth
+
+
+
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
@@ -111,7 +114,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                             document.getElementById('logout-form').submit();">
+                                                                 document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 

@@ -12,6 +12,11 @@ use SebastianBergmann\Environment\Console;
 
 class WordController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index($wordToLoad)
     {
         if ($wordToLoad) {
