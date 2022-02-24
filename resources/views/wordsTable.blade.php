@@ -22,7 +22,7 @@
                 <?php if ($word->learned) { ?>
                 <button 
                 id="btnNotLearned_{{ $word->id }}"
-                class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Click to mark not learned"
+                class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Click to mark not learned"
                 onclick="markNotLearned({{ $word->id }})"
                 >
                     <img src="/images/check2-circle.svg" alt="Learned">

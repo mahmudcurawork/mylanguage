@@ -64,16 +64,14 @@ class ArticleController extends Controller
     }
 
     public function view(){
-        // $articles = Article::where('user_id', Auth::user()->id)
-        // ->orderBy('created_at', 'desc')
-        // ->get()
-        // ;
 
         $articles = DB::table('articles as a')
         ->select(DB::raw('a.*,
         count(w.id) as unlearned'))
-        ->leftJoin('words as w', 'a.id', '=', 'w.article_id')
-        ->where('w.learned', 0)
+        ->leftJoin('words as w', function($join){
+            $join->on('a.id', '=', 'w.article_id');
+            $join->where('w.learned', 0);
+        })
         ->where('a.user_id', Auth::user()->id)
         ->groupBy('a.id')
         ->get()
