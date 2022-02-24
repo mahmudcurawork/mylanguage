@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 
@@ -58,11 +59,20 @@ class ArticleController extends Controller
     }
 
     public function view(){
-        $articles = Article::where('user_id', Auth::user()->id)
-        ->orderBy('created_at', 'desc')
+        // $articles = Article::where('user_id', Auth::user()->id)
+        // ->orderBy('created_at', 'desc')
+        // ->get()
+        // ;
+
+        $articles = DB::table('articles as a')
+        ->select(DB::raw('a.*,
+        count(w.id) as unlearned'))
+        ->leftJoin('words as w', 'a.id', '=', 'w.article_id')
+        ->where('w.learned', 0)
+        ->where('a.user_id', Auth::user()->id)
+        ->groupBy('a.id')
         ->get()
         ;
-
 
         $variables = [
             'articles' => $articles

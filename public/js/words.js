@@ -416,11 +416,12 @@ function dateSearch() {
 
 }
 
-function loadWordsOnArticle() {
-    var readNumber = $('#wordsOnArticle').val();
+function loadWordsOnArticle(articleNumber = $('#wordsOnArticle').val()) {
+    // var articleNumber = $('#wordsOnArticle').val();
 
-    if (readNumber == 0) {
-        readNumber = 1;
+    if (articleNumber == 0) {
+        loadWords();
+        return false;
     }
 
     var contentId = 'wordsTable';
@@ -431,7 +432,7 @@ function loadWordsOnArticle() {
         [showContentHideSkeletons, [contentId, skeletonId, 'response']],
     ];
 
-    ajax('/loadWordsOnArticle/' + readNumber, 'GET', functionsOnSuccess);
+    ajax('/loadWordsOnArticle/' + articleNumber, 'GET', functionsOnSuccess);
 }
 
 function loadWordsOnRead() {

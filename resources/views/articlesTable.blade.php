@@ -3,8 +3,12 @@
     @foreach ($articles as $article)
         <tr id="articleRow_{{ $article->id }}">
             <th scope="row">
-                
-                {{ $article->title }}
+                <span 
+                style="cursor: pointer;"
+                onclick="loadWordsOnArticle({{ $article->id }})"
+                data-toggle="tooltip" data-placement="top" title="Unlearned">
+                    {{ $article->title.' ('.$article->unlearned. ')' }}
+                </span>
 
             </th>
             <td colspan="2">
