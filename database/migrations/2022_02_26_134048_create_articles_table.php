@@ -16,7 +16,8 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->index('user_id');
+            $table->foreignId('user_id')->references('id')->on('users')->constrained()->onDelete('cascade');
             
             $table->text('title');
             $table->text('reference');

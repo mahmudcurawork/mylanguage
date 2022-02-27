@@ -345,18 +345,12 @@ function saveData() {
         var definition = $('#definition').val();
         var articleId = $('#articles').val();
 
-        // if (articleId == 0) {
-        //     articleId = $('#anonymousId').val();
-        // }
-
         $('#wordModal').modal('hide');
 
         var formData = new FormData;
         formData.append('word', word);
         formData.append('definition', definition);
         formData.append('articleId', articleId);
-
-
 
         ajax('/save-word', 'POST', '', formData);
         loadWords();
@@ -367,8 +361,6 @@ function saveData() {
     } else {
         console.log('Error saving data');
     }
-
-
 }
 
 function saveArticle() {
@@ -393,14 +385,11 @@ function saveArticle() {
     } else {
         console.log('Error saving data');
     }
-
-
 }
 
 
 
 function dateSearch() {
-
     var startDate = $('#startDate').val() == '' ? 0 : $('#startDate').val();
     var endDate = $('#endDate').val() == '' ? 0 : $('#endDate').val();
 
@@ -488,7 +477,6 @@ setTimeout(() => {
 loadNumbers();
 loadArticles('wordsOnArticle', 0);
 
-
 function loadArticles(contentId, articleId) {
     var skeletonId = 'skeleton';
 
@@ -512,8 +500,6 @@ function loadNumbers() {
     setTimeout(() => {
         ajax('/load-numbers', 'GET', functionsOnSuccess);
     }, 0);
-
-    
 }
 
 
@@ -529,6 +515,8 @@ function ajax(url, method, functionsOnSuccess, form) {
     if (typeof form === 'undefined') {
         form = new FormData;
     }
+
+    console.log(functionsOnSuccess);
 
     $.ajax({
         url: url,
